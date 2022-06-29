@@ -2,8 +2,44 @@ import logo from './logo.svg';
 import './App.css';
 import PieChart from './components/PieChart';
 import Chart from './components/Chart';
+import Card from './components/Card';
+import Wolf from './images/wolf.jpeg';
+import Cat from './images/cat.jpeg';
+import Fist from './images/fist_bump.jpeg';
+import Skull from './images/skull.png';
+import VR from './images/vr_headset.jpeg';
+
 
 function App() {
+    const data = [
+      {image: Wolf, title: 'Monthly Report', link: '/'},
+      {image: Cat, title: 'Vulnerability Status Report', link: '/'},
+      {image: Skull, title: 'Remediation Monitoring', link: '/'},
+      {image: Fist, title: 'Quick Wins', link: '/'},
+
+
+    ]
+  
+    const homepage_cards = data.map((item) =>
+        
+        
+        <Card key={item.title} image={item.image} title={item.title} link={item.link}  />
+ 
+ );
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -18,7 +54,7 @@ function App() {
       <div className="row">
             
       </div>
-      <div className="row">
+      <div className="row" id="dropdowns">
                 <div className="col-sm">
                   <div className="dropdown">
                     <button className="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,25 +108,27 @@ function App() {
                 </div>
       </div>
           
-          
+      <div className="row">
+                <div className="col-sm">
+                    <p>Other reports:</p>
+                </div>
+      </div>
           
           
           <div className="row">
-                <div className="col-sm">
-                  <PieChart />
-                </div>
-              
-                <div className="col-sm">
-                  <Chart />
-                </div>
-              </div>
+              {homepage_cards}
+          </div>
+          
+          
+          
+          
           <div className="row">
             <div className="col-sm">
               <PieChart />
             </div>
           
             <div className="col-sm">
-              <PieChart />
+              <Chart />
             </div>
           </div>
         </div>
