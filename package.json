@@ -11,6 +11,7 @@
     "react-fusioncharts": "^4.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-select": "^5.4.0",
     "victory": "^36.5.2",
     "web-vitals": "^2.1.4"
   },

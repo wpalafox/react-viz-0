@@ -10,6 +10,10 @@ import App from './App';
 import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import reportWebVitals from './reportWebVitals';
+import MonthlyReport from './components/dashboards/MonthlyReport';
+import VulnerabilityStatusReport from './components/dashboards/VulnerabilityStatusReport';
+import RemediationMonitoring from './components/dashboards/RemediationMonitoring';
+import QuickWins from './components/dashboards/QuickWins';
 
 
 
@@ -20,6 +24,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
       <Navbar />
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/monthly_report" element={<MonthlyReport />} />
+          <Route path="/vulnerability_status_report" element={<VulnerabilityStatusReport />} />
+          <Route path="/remediation_monitoring" element={<RemediationMonitoring />} />
+          <Route path="/quick_wins" element={<QuickWins />} />
         
           
 
