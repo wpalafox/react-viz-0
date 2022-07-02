@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './Card.css';
 
 export default function Card(props) {
   return (
@@ -9,7 +10,7 @@ export default function Card(props) {
                 <div className="card-body">
                     <h5 className="card-title">{props.title}</h5>
                    
-                    <a href={props.link} className="btn btn-primary">Select</a>
+                    <a href={props.link} className="btn btn-primary">View</a>
                 </div>
             </div>
 

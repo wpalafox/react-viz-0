@@ -43,6 +43,13 @@ function App() {
     
 
     }
+
+  //Will use this function to clear selection and go back to selection drop down menus
+  const resetAggregateSelection = () => {
+    setaggregateSelected(false)
+
+  }
+
   
     useEffect(() => {
       console.log("Aggregate Type State: ",aggregateValue)
@@ -251,13 +258,20 @@ function App() {
   );
 }else{
   return (
-    
-    <div className="row">
-    <p>{aggregateValue} has been selected</p>
-    {homepage_cards}
-    
-    </div>
+    <div className="container">
+        <div className="row" id="selection-status-row">
+        <div className="col">
+          <p><b>{aggregateValue} aggregation filter selected</b></p>
+        
 
+          <button type="button" id="reset" class="btn btn-danger" onClick={resetAggregateSelection}>Reset</button>
+        </div>
+        </div>
+        <div className="row">
+            {homepage_cards}
+        </div>
+       
+    </div>
 
 
 

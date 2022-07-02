@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function QuickWins() {
+export default function QuickWins(props) {
   return (
-    <div>QuickWins</div>
+    <div>QuickWins of {props.data}</div>
   )
 }
