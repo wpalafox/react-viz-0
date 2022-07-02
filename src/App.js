@@ -12,6 +12,12 @@ import Card_CVE from './components/Card_CVE.js';
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
 
+//Context
+
+
+
+
+
 //Dashboard components
 import MonthlyReport from './components/dashboards/MonthlyReport';
 import VulnerabilityStatusReport from './components/dashboards/VulnerabilityStatusReport';
@@ -21,39 +27,74 @@ import QuickWins from './components/dashboards/QuickWins';
 
 function App() {
     
-  //React State Hooks paired with handlers. 
-  const [productName, setProductName] = useState("Vanilla");
+  //Aggregate Value selected initially set to False
+  const [aggregateSelected, setaggregateSelected] = useState(false); 
+  //React State Hooks paired with handlers.  1 of 4
+  const [aggregateValue, setaggregateValue] = useState("");
     
-  const productNameHandler = (e) => {
+  const selectedAggregateHandler = (e) => {
       const value = e.value
-      setProductName(value)
+      setaggregateValue(value)
+      setaggregateSelected(true)
       console.log("Value selected ",value)
+     
+
+      //Pass this state prop into all 4 dashboard components
+    
+
     }
   
     useEffect(() => {
-      console.log("Product name state: ",productName)
+      console.log("Aggregate Type State: ",aggregateValue)
+      console.log("Aggregate Selected State: ",aggregateSelected)
+      
     })
   
+    /*
+  //React State Hooks paired with handlers. 2 of 4
   const [bProductName, setbProductName] = useState("");
-  const [securityChampion, setSecurityChampion] = useState("");
-  const [manager, setManager] = useState("");
   
-  //Handle the change
-  //const handleProductNameChange = (e) => {setProductName[e.target.value]}
+  const bproductNameHandler = (e) => {
+    const value = e.value
+    setbProductName(value)
+    console.log("Value selected ",value)
+  }
+
+ 
+   //React State Hooks paired with handlers. 3 of 4
+  const [securityChampion, setSecurityChampion] = useState("");
+  
+  const securityChampioneHandler = (e) => {
+    const value = e.value
+    setSecurityChampion(value)
+    console.log("Value selected ",value)
+  }
+  
+   //React State Hooks paired with handlers. 4 of 4
+  
+  const [manager, setManager] = useState("");
+
+  const managerHandler = (e) => {
+    const value = e.value
+    setManager(value)
+    console.log("Value selected ",value)
+  }
+  */
+  
 
   
-  //Testing for dropdown
+  //Dummy Lists of Objects for testing and setting state (for dropdowns)
   const techCompanies = [
-    { label: "Apple", value: 1 },
-    { label: "Facebook", value: 2 },
-    { label: "Netflix", value: 3 },
+    { label: "Apple", value: "apple" },
+    { label: "Facebook", value: "facebook" },
+    { label: "Netflix", value: "netflix" },
   ];
 
     //Testing for dropdown
     const footballTeams = [
-      { label: "Ravens", value: 1 },
-      { label: "Cowboys", value: 2 },
-      { label: "Saints", value: 3 },
+      { label: "Ravens", value: "ravens" },
+      { label: "Cowboys", value: "cowboys" },
+      { label: "Saints", value: "saints" },
      
     ];
 
@@ -64,18 +105,13 @@ function App() {
       { label: "Coffee", value: "coffee" },
       
     ];
-    /*
-    const [selectedOption, setSelectedOption] = useState({ value: 'vanilla', label: 'Vanilla' });
 
-    const handleChange = (e) => {
-      setSelectedOption({selectedOption: e.target.value})
-    }
-    */
+  
       //Testing for dropdown
       const Cars = [
-        { label: "Civic", value: 1 },
-        { label: "Mustang", value: 2 },
-        { label: "Tacoma", value: 3 },
+        { label: "Civic", value: "civic" },
+        { label: "Mustang", value: "mustang" },
+        { label: "Tacoma", value: "tacoma" },
        
       ];
   
@@ -107,6 +143,9 @@ function App() {
  
  );
 
+
+
+
     const CVSS_cards = data0.map((item) =>
         
         
@@ -126,7 +165,7 @@ function App() {
   
   
   
-  
+ if(!aggregateSelected){ 
   return (
     <div className="App">
       <header className="App-header">
@@ -147,7 +186,7 @@ function App() {
                     <Select 
 
                       options={iceCream}
-                      onChange={productNameHandler}
+                      onChange={selectedAggregateHandler}
                       
                       
                       />
@@ -156,20 +195,35 @@ function App() {
                 <div className="col-sm">
                 <div className="col-sm">
                     <p>Business Product Name</p>
-                    <Select options={ footballTeams } />
+                    <Select 
+                    
+                      options={ footballTeams }
+                      onChange={selectedAggregateHandler}
+                      
+                      
+                      
+                      />
                 </div>
                 </div>
 
                 <div className="col-sm">
                 <div className="col-sm">
                     <p>Security Champion</p>
-                    <Select options={ techCompanies } />
+                    <Select 
+                    options={ techCompanies }
+                    onChange={selectedAggregateHandler} 
+                    />
                 </div>
                 </div>
 
                 <div className="col-sm">
                 <p>Manager</p>
-                    <Select options={ Cars } />
+                    <Select 
+                      options={ Cars } 
+                      onChange={selectedAggregateHandler}
+                    
+                    
+                    />
                 </div>
       </div>
           
@@ -178,15 +232,13 @@ function App() {
           
           
           
+      
           
-          
-          <div className="row">
-              {homepage_cards}
-          </div>
-
          
+
+  
           
-        
+       
           
           
           
@@ -197,7 +249,30 @@ function App() {
         
     </div>
   );
+}else{
+  return (
+    
+    <div className="row">
+    <p>{aggregateValue} has been selected</p>
+    {homepage_cards}
+    
+    </div>
+
+
+
+
+  )
+
+
+
 }
+
+
+
+
+
+}
+
 
 export default App;
 
@@ -224,3 +299,30 @@ Testing out the Charts rendering from the Victory Library
 
 //THIS IS IT
 //https://www.codegrepper.com/code-examples/javascript/handlechange+select+react
+
+
+//Psuedo code
+//Now that I have set the state variables up for the App component, I will need to trigger 
+//the coponent on a click with the state passed into it as a prop....
+
+//This library may help in the future.
+//https://react-query.tanstack.com/overview
+
+//Passing data between components
+//https://www.geeksforgeeks.org/how-to-pass-data-from-one-component-to-other-component-in-reactjs/
+//You can think of React context as the equivalent of global variables for our React components.
+//This is the benefit of React context – we can bypass using props entirely and therefore avoid the issue of props drilling.
+//https://www.freecodecamp.org/news/react-context-for-beginners/
+
+
+
+
+//Think about another way to attack this: since all the passing of data involves a component,
+//that is in the return part of a parent component, I think I need to include
+//conditional rendering so I can simply pass the props.. so may not use the router this time.
+//https://reactjs.org/docs/conditional-rendering.html
+
+//Okay, I need to take a step back and first, only allow the user to select one state from dropdown...
+//Or have the option to reset...
+//Psuedo code, if something is selected, then the other selects will not render..
+//And a button will be available to reset...

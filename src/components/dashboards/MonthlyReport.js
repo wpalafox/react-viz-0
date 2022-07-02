@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function MonthlyReport(props) {
   return (
-    <div>MonthlyReport</div>
+    <div>Hello, I am {props.data}!</div>
   )
 }

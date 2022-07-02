@@ -24,10 +24,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
       <Navbar />
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/monthly_report" element={<MonthlyReport />} />
-          <Route path="/vulnerability_status_report" element={<VulnerabilityStatusReport />} />
-          <Route path="/remediation_monitoring" element={<RemediationMonitoring />} />
-          <Route path="/quick_wins" element={<QuickWins />} />
+         
         
           
 
