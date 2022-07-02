@@ -27,9 +27,18 @@ import QuickWins from './components/dashboards/QuickWins';
 
 function App() {
     
-  //Aggregate Value selected initially set to False
+  //The Booleans below are used for the conditional rendering logic of the App
+  //Boolean values: Aggregate Value selected?
   const [aggregateSelected, setaggregateSelected] = useState(false); 
-  //React State Hooks paired with handlers.  1 of 4
+  //Boolean values for Dashboards initially set to False to determine if they 
+  //are rendering or not
+  const [monthlyReport, setmonthlyReport] = useState(false);
+  const [vulnerabilityStatus, setvulnerabilityStatus] = useState(false); 
+  const [remediationMonitoring, setvremediationMonitoring] = useState(false);
+  const [quickWins, setquickWins] = useState(false);
+  
+  
+  //React State Hooks paired with handlers. 
   const [aggregateValue, setaggregateValue] = useState("");
     
   const selectedAggregateHandler = (e) => {
@@ -39,7 +48,7 @@ function App() {
       console.log("Value selected ",value)
      
 
-      //Pass this state prop into all 4 dashboard components
+      //Then will pass this state value as a prop into all 4 dashboard components
     
 
     }
@@ -47,13 +56,27 @@ function App() {
   //Will use this function to clear selection and go back to selection drop down menus
   const resetAggregateSelection = () => {
     setaggregateSelected(false)
+    setmonthlyReport(false)
+    
 
   }
 
+  //Handlers for all 4 dashboard views
+
+  const monthlyReportHandler = (value) => {
+    setmonthlyReport(value);
+  }
   
+  
+  
+  
+  
+  //useEffect will console.log any changes of state in the app in real time.  
     useEffect(() => {
-      console.log("Aggregate Type State: ",aggregateValue)
-      console.log("Aggregate Selected State: ",aggregateSelected)
+      //console.log("Aggregate Type State: ",aggregateValue)
+      //console.log("Aggregate Selected State: ",aggregateSelected)
+      console.log("MonthlyReport State?: ", monthlyReport);
+      console.log("Aggregate Selected?: ", aggregateSelected);
       
     })
   
@@ -114,7 +137,7 @@ function App() {
     ];
 
   
-      //Testing for dropdown
+    //Testing for dropdown
       const Cars = [
         { label: "Civic", value: "civic" },
         { label: "Mustang", value: "mustang" },
@@ -125,8 +148,10 @@ function App() {
   
   
   
+  
+  //Need to pass handlers for each respective Dashboard into here
     const data = [
-      {image: Wolf, title: 'Monthly Report', link: '/monthly_report'},
+      {image: Wolf, title: 'Monthly Report', handler: monthlyReportHandler},
       {image: Cat, title: 'Vulnerability Status Report', link: '/'},
       {image: Skull, title: 'Remediation Monitoring', link: '/'},
       {image: Fist, title: 'Quick Wins', link: '/'},
@@ -134,6 +159,12 @@ function App() {
 
     ]
 
+  const homepage_cards = data.map((item) =>
+        
+        <Card key={item.title} image={item.image} title={item.title} handler={item.handler}  />
+
+);
+  
     const data0 = [
       {title: 'CVE-2022-30333', score: 7.5, epss: .89, audience: 5000 , tweets: 10000, retweets: 15000},
       {title: 'CVE-2022-23277', score: 8.8, epss: 1.97, audience: 5000 , tweets: 10000, retweets: 15000},
@@ -142,18 +173,9 @@ function App() {
 
 
     ]
-  
-    const homepage_cards = data.map((item) =>
-        
-        
-        <Card key={item.title} image={item.image} title={item.title} link={item.link}  />
  
- );
-
-
-
-
-    const CVSS_cards = data0.map((item) =>
+   
+const CVSS_cards = data0.map((item) =>
         
         
       <Card_CVE key={item.title} score={item.score} epss={item.epss} audience={item.audience} tweets={item.tweets} retweets={item.retweets}  />
@@ -170,116 +192,104 @@ function App() {
   
   
   
+ 
   
+    if(!aggregateSelected){ 
+      return (
+        <div className="App">
+          <header className="App-header">
+          
+          </header>
+          <div className="container">
+          <div className="row">
+                    <div className="col-sm">
+                        <p><b>Aggregate by</b></p>
+                    </div>
+          </div>
+          <div className="row">
+                
+          </div>
+          <div className="row" id="dropdowns">
+                    <div className="col-sm">
+                        <p>Product Name</p>
+                        <Select 
+
+                          options={iceCream}
+                          onChange={selectedAggregateHandler}
+                          
+                          
+                          />
+                    </div>
+
+                    <div className="col-sm">
+                    <div className="col-sm">
+                        <p>Business Product Name</p>
+                        <Select 
+                        
+                          options={ footballTeams }
+                          onChange={selectedAggregateHandler}
+              
+                          />
+                    </div>
+                    </div>
+
+                    <div className="col-sm">
+                    <div className="col-sm">
+                        <p>Security Champion</p>
+                        <Select 
+                        options={ techCompanies }
+                        onChange={selectedAggregateHandler} 
+                        />
+                    </div>
+                    </div>
+
+                    <div className="col-sm">
+                    <p>Manager</p>
+                        <Select 
+                          options={ Cars } 
+                          onChange={selectedAggregateHandler}
+                        
+                        
+                        />
+                    </div>
+          </div>
   
- if(!aggregateSelected){ 
-  return (
-    <div className="App">
-      <header className="App-header">
-       
-      </header>
-      <div className="container">
-      <div className="row">
-                <div className="col-sm">
-                    <p><b>Aggregate by</b></p>
-                </div>
-      </div>
-      <div className="row">
+            </div>
             
-      </div>
-      <div className="row" id="dropdowns">
-                <div className="col-sm">
-                    <p>Product Name</p>
-                    <Select 
+        </div>
+      );
+    }else if(aggregateSelected && !monthlyReport){
+      return (
+        <div className="container">
+            <div className="row" id="selection-status-row">
+            <div className="col">
+              <p><b>{aggregateValue}</b> aggregation filter selected</p>
+            
 
-                      options={iceCream}
-                      onChange={selectedAggregateHandler}
-                      
-                      
-                      />
-                </div>
+            <button type="button" id="reset" className="btn btn-danger" onClick={resetAggregateSelection}>Reset</button>
+            </div>
+            </div>
+            <div className="row">
+                {homepage_cards}
+              
+            </div>
+          
+        </div>
 
-                <div className="col-sm">
-                <div className="col-sm">
-                    <p>Business Product Name</p>
-                    <Select 
-                    
-                      options={ footballTeams }
-                      onChange={selectedAggregateHandler}
-                      
-                      
-                      
-                      />
-                </div>
-                </div>
 
-                <div className="col-sm">
-                <div className="col-sm">
-                    <p>Security Champion</p>
-                    <Select 
-                    options={ techCompanies }
-                    onChange={selectedAggregateHandler} 
-                    />
-                </div>
-                </div>
 
-                <div className="col-sm">
-                <p>Manager</p>
-                    <Select 
-                      options={ Cars } 
-                      onChange={selectedAggregateHandler}
-                    
-                    
-                    />
-                </div>
-      </div>
-          
-     
-          
-          
-          
-          
+      )
+
+
+
+    }else if(monthlyReport && aggregateSelected){
+      return (
       
-          
-         
-
+      <MonthlyReport data={aggregateValue} />
   
-          
-       
-          
-          
-          
-          
-        
-         
-        </div>
-        
-    </div>
-  );
-}else{
-  return (
-    <div className="container">
-        <div className="row" id="selection-status-row">
-        <div className="col">
-          <p><b>{aggregateValue} aggregation filter selected</b></p>
-        
 
-          <button type="button" id="reset" class="btn btn-danger" onClick={resetAggregateSelection}>Reset</button>
-        </div>
-        </div>
-        <div className="row">
-            {homepage_cards}
-        </div>
-       
-    </div>
-
-
-
-  )
-
-
-
-}
+      );
+    }
 
 
 
