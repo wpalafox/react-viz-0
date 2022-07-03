@@ -7,7 +7,7 @@ export default function Card(props) {
 function handleChange() {
         // Here, we invoke the callback with the new value
        props.handler(true)
-    }
+}
 
   return (
         //style="width: 18rem;"

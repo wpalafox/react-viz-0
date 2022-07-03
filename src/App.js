@@ -34,7 +34,7 @@ function App() {
   //are rendering or not
   const [monthlyReport, setmonthlyReport] = useState(false);
   const [vulnerabilityStatus, setvulnerabilityStatus] = useState(false); 
-  const [remediationMonitoring, setvremediationMonitoring] = useState(false);
+  const [remediationMonitoring, setremediationMonitoring] = useState(false);
   const [quickWins, setquickWins] = useState(false);
   
   
@@ -62,11 +62,22 @@ function App() {
   }
 
   //Handlers for all 4 dashboard views
-
+ 
   const monthlyReportHandler = (value) => {
     setmonthlyReport(value);
   }
+
+  const remediationMonitoringHandler = (value) => {
+    setremediationMonitoring(value);
+  }
+
+  const vulnerabilityHandler = (value) => {
+    setvulnerabilityStatus(value);
+  }
   
+  const quickWinsHandler = (value) => {
+    setquickWins(value);
+  }
   
   
   
@@ -75,8 +86,9 @@ function App() {
     useEffect(() => {
       //console.log("Aggregate Type State: ",aggregateValue)
       //console.log("Aggregate Selected State: ",aggregateSelected)
-      console.log("MonthlyReport State?: ", monthlyReport);
+      //console.log("MonthlyReport State?: ", monthlyReport);
       console.log("Aggregate Selected?: ", aggregateSelected);
+      console.log("Vulnerability Selected?: ", vulnerabilityStatus);
       
     })
   
@@ -113,7 +125,7 @@ function App() {
   
 
   
-  //Dummy Lists of Objects for testing and setting state (for dropdowns)
+  //Dummy Lists of Objects for testing and setting inital aggregation state (from dropdowns)
   const techCompanies = [
     { label: "Apple", value: "apple" },
     { label: "Facebook", value: "facebook" },
@@ -145,16 +157,16 @@ function App() {
        
       ];
   
-  
+  ///////////////////////////////////////////////////////////////////////////////
   
   
   
   //Need to pass handlers for each respective Dashboard into here
     const data = [
       {image: Wolf, title: 'Monthly Report', handler: monthlyReportHandler},
-      {image: Cat, title: 'Vulnerability Status Report', link: '/'},
-      {image: Skull, title: 'Remediation Monitoring', link: '/'},
-      {image: Fist, title: 'Quick Wins', link: '/'},
+      {image: Cat, title: 'Vulnerability Status Report', handler: vulnerabilityHandler},
+      {image: Skull, title: 'Remediation Monitoring', handler: remediationMonitoringHandler},
+      {image: Fist, title: 'Quick Wins', handler: quickWinsHandler},
 
 
     ]
@@ -258,7 +270,7 @@ const CVSS_cards = data0.map((item) =>
             
         </div>
       );
-    }else if(aggregateSelected && !monthlyReport){
+    }else if(aggregateSelected && !monthlyReport && !vulnerabilityStatus && !remediationMonitoring && !quickWins){
       return (
         <div className="container">
             <div className="row" id="selection-status-row">
@@ -280,12 +292,33 @@ const CVSS_cards = data0.map((item) =>
 
       )
 
-
+    //Conditional rendering logic to determine which dashboard view is rendered
 
     }else if(monthlyReport && aggregateSelected){
       return (
       
-      <MonthlyReport data={aggregateValue} />
+            <MonthlyReport data={aggregateValue} />
+  
+
+      );
+    }else if(vulnerabilityStatus && aggregateSelected){
+      return (
+      
+            <VulnerabilityStatusReport data={aggregateValue} />
+  
+
+      );
+    }else if(remediationMonitoring && aggregateSelected){
+      return (
+      
+            <RemediationMonitoring data={aggregateValue} />
+  
+
+      );
+    }else if(quickWins && aggregateSelected){
+      return (
+      
+            <QuickWins data={aggregateValue} />
   
 
       );
