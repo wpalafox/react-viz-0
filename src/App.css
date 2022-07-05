@@ -15,7 +15,16 @@
 
 #selection-status-row{
   padding-bottom: 5%;
+  border: 5ch;
+  border-color: magenta;
 }
+
+#status-card{
+  padding-bottom: 5%;
+
+}
+
+
 
 /*
 

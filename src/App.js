@@ -177,6 +177,7 @@ function App() {
 
 );
   
+//How to retrieve data with REST API? CVE Trends API 
     const data0 = [
       {title: 'CVE-2022-30333', score: 7.5, epss: .89, audience: 5000 , tweets: 10000, retweets: 15000},
       {title: 'CVE-2022-23277', score: 8.8, epss: 1.97, audience: 5000 , tweets: 10000, retweets: 15000},
@@ -273,15 +274,25 @@ const CVSS_cards = data0.map((item) =>
     }else if(aggregateSelected && !monthlyReport && !vulnerabilityStatus && !remediationMonitoring && !quickWins){
       return (
         <div className="container">
-            <div className="row" id="selection-status-row">
-            <div className="col">
-              <p><b>{aggregateValue}</b> aggregation filter selected</p>
+           
+                <div className="card" id="status-card">
+                    <div className="card-header">
+                        Update
+                    </div>
+                    <div className="card-body">
+                      <h5 className="card-title">Dashboards Ready</h5>
+                      <p><b>{aggregateValue}</b> aggregation filter currently selected.</p>
+                      <button type="button" id="reset" className="btn btn-danger" onClick={resetAggregateSelection}>Reset</button>
+                    </div>
+                </div>
+              
+              
+              
+              
+              
+              
             
-
-            <button type="button" id="reset" className="btn btn-danger" onClick={resetAggregateSelection}>Reset</button>
-            </div>
-            </div>
-            <div className="row">
+            <div id="dashboard-cards" className="row">
                 {homepage_cards}
               
             </div>
@@ -383,3 +394,8 @@ Testing out the Charts rendering from the Victory Library
 //Or have the option to reset...
 //Psuedo code, if something is selected, then the other selects will not render..
 //And a button will be available to reset...
+
+
+
+//Fetching data with React Hooks
+//https://react-hooks-cheatsheet.com/examples/fetching-data
